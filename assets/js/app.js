@@ -20,3 +20,12 @@ var svg = d3
   .append("svg")
   .attr("height", svgHeight)
   .attr("width", svgWidth);
+
+// Append an SVG group
+var chartGroup = svg.append("g")
+.attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
+
+// Load data from csv file
+d3.csv("assets/data/data.csv").then(function(censusData) {
+// Print census data
+console.log(censusData)});
