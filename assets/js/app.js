@@ -67,7 +67,8 @@ var circlesGroup = chartGroup.selectAll("circle")
 .attr("cy", d => yLinearScale(d.healthcare))
 .attr("r", "10")
 .attr("fill", "lightblue")
-.attr("opacity", ".5");
+.attr("opacity", ".5")
+.text(d => d.abbr)
 
 // Create axes labels
 chartGroup.append("text")
