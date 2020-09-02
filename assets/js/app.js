@@ -5,7 +5,7 @@ var svgHeight = 600;
 // Define the chart's margins as an object
 var margin = {
   top: 20,
-  right: 20,
+  right: 50,
   bottom: 100,
   left: 100
 };
@@ -39,11 +39,11 @@ censusData.forEach(function(data) {
 
 // Create scaling functions
 var xLinearScale = d3.scaleLinear()
-        .domain([0, d3.max(censusData, d => d.poverty)])
+        .domain([8.1, d3.max(censusData, d => d.poverty)])
         .range([0, width]);
 
 var yLinearScale = d3.scaleLinear()
-        .domain([0, d3.max(censusData, d => d.healthcare)])
+        .domain([4.1, d3.max(censusData, d => d.healthcare)])
         .range([height, 0]);
 
 // Create axis functions
@@ -67,8 +67,22 @@ var circlesGroup = chartGroup.selectAll("circle")
 .attr("cy", d => yLinearScale(d.healthcare))
 .attr("r", "10")
 .attr("fill", "lightblue")
-.attr("opacity", ".5")
-.text(d => d.abbr)
+.attr("opacity", ".75")
+
+// Create circle labels
+chartGroup.append("g")
+      .selectAll("circle")
+      .data(censusData)
+      .enter()
+      .append("text")
+      .text(d => d.abbr)
+      .attr("x", d => xLinearScale(d.poverty))
+      .attr("y", d => yLinearScale(d.healthcare))
+      .attr("text-anchor", "middle")
+      .attr("font-size", "10px")
+      .attr("fill", "white")
+      .style("font-weight", "bold")
+      .attr("alignment-baseline", "central");
 
 // Create axes labels
 chartGroup.append("text")
